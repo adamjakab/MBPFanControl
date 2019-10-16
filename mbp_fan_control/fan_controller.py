@@ -56,11 +56,14 @@ class FanController:
 
     def _set_fan_rpm(self, rpm, sys_path):
         cmd = 'echo {0} > {1}'.format(rpm, sys_path)
-        try:
-            subprocess.call([cmd], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
-        except Exception as e:
-            self.logger.warning("OS Call error: {0}".format(e))
-            pass
+        self.logger.log("EXEC: '{0}'".format(cmd))
+        os.system(cmd)
+
+        # try:
+        #     subprocess.call([cmd], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        # except Exception as e:
+        #     self.logger.warning("OS Call error: {0}".format(e))
+        #     pass
 
     @staticmethod
     def _get_average_thermal_percent(sensor_data):
