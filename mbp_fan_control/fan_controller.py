@@ -8,6 +8,7 @@
 
 import logging
 import os
+from math import log10
 
 
 class FanController:
@@ -35,11 +36,21 @@ class FanController:
             range_max = int(fan["max_rpm"])
             range_tot = range_max - range_min
             if self._algorithm == "linear":
-                range_value = range_min + int(range_tot * atp / 100)
+                y = atp
+            elif self._algorithm == "logarithmic":
+                y = 96.025 * log10((atp+10)/10)
+            elif self._algorithm == "squared":
+                y = (atp ** 2) / 100
             else:
                 self.logger.warning("Unknown fan algorithm({0})!".format(self._algorithm))
                 # Fall back to 50%
-                range_value = range_min + int(range_tot / 2)
+                y = 50
+
+            range_value = int(range_min + int(range_tot * y / 100))
+            if range_value < range_min:
+                range_value = range_min
+            if range_value > range_max:
+                range_value = range_max
 
             answer.append(range_value)
 
