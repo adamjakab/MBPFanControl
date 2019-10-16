@@ -21,7 +21,6 @@ class SensorChecker:
         answer = []
 
         for sensor in self._config:
-            self.logger.info("Sensor: {0}".format(sensor["alias"]))
             raw_value = self._read_sensor_data(sensor["sys_path"])
             range_min = int(sensor["min_degrees"]) * 1000
             range_max = int(sensor["max_degrees"]) * 1000

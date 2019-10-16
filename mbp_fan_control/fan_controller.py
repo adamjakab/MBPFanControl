@@ -6,7 +6,6 @@
 #
 #
 
-import subprocess
 import logging
 import os
 
@@ -22,11 +21,10 @@ class FanController:
         if algorithm in self._algorithms:
             self._algorithm = algorithm
 
-
     def adjust_fan_speed(self, sensor_data):
-        self.logger.info("Sensor data: {0}".format(sensor_data))
+        # self.logger.info("Sensor data: {0}".format(sensor_data))
         avg_percent = self._get_average_thermal_percent(sensor_data)
-        self.logger.info("Average Thermal Percent: {0}".format(avg_percent))
+        self.logger.info("Average Thermal Percent(ATP): {0}%".format(avg_percent))
         fan_speeds = self._get_desired_fan_speeds(avg_percent)
         self._set_fan_speeds(fan_speeds)
 
@@ -56,25 +54,15 @@ class FanController:
 
     def _set_fan_rpm(self, rpm, sys_path):
         cmd = 'echo {0} > {1}'.format(rpm, sys_path)
-        self.logger.debug("EXEC: '{0}'".format(cmd))
+        # self.logger.debug("EXEC: '{0}'".format(cmd))
         os.system(cmd)
 
-        # try:
-        #     subprocess.call([cmd], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
-        # except Exception as e:
-        #     self.logger.warning("OS Call error: {0}".format(e))
-        #     pass
-
-    @staticmethod
-    def _get_average_thermal_percent(sensor_data):
+    def _get_average_thermal_percent(self, sensor_data):
         avg_percent = 0
         for sd in sensor_data:
             avg_percent += sd["range_percent"]
+            self.logger.debug(
+                "Sensor[{0}]: {1}°C ({2}%)".format(sd["alias"], int(sd["raw_value"] / 1000), sd["range_percent"]))
 
         avg_percent = int(avg_percent / len(sensor_data))
         return avg_percent
-
-
-
-
-
