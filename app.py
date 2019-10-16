@@ -59,11 +59,15 @@ if os.path.isfile(log_configuration_file) is False:
 logging.config.fileConfig(__script_dir__ + '/' + log_configuration_file)
 logger = logging.getLogger(__name__)
 
+___KEEP_RUNNING___ = True
+
 
 def interrupt(sig, frame):
+    global ___KEEP_RUNNING___
     # subscriber.interrupt()
     # destination.interrupt()
     logger.warning("INTERRUPT!")
+    ___KEEP_RUNNING___ = False
 
 
 # Run main
@@ -74,12 +78,8 @@ if __name__ == '__main__':
     checker = SensorChecker(config["sensors"])
     ctrl = FanController(config["fan_speed_algorithm"], config["fans"])
 
+    while ___KEEP_RUNNING___:
+        sensor_data = checker.get_sensors_data()
+        ctrl.adjust_fan_speed(sensor_data)
+        sleep(config["poll_interval_sec"])
 
-    sensor_data = checker.get_sensors_data()
-    ctrl.adjust_fan_speed(sensor_data)
-
-
-    # sleep(config["poll_interval_sec"])
-
-    # We are done
-    logger.info("Done.")
