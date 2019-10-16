@@ -9,6 +9,10 @@ SETUP
 
 ```
 
+FAN SPEED ALGORITHMS
+-------------
+[IMG HERE]
+
 CONFIGURATION
 -------------
 

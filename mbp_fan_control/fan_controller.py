@@ -8,13 +8,13 @@
 
 import logging
 import os
-from math import log10
+from math import log10, sinh, tanh
 
 
 class FanController:
     _config = None
     _algorithm = "linear"
-    _algorithms = ["linear", "logarithmic", "squared"]
+    _algorithms = ["linear", "logarithmic", "squared", "sinh", "tanh"]
 
     def __init__(self, algorithm, fan_config):
         self.logger = logging.getLogger()
@@ -41,6 +41,10 @@ class FanController:
                 y = 96.025 * log10((atp+10)/10)
             elif self._algorithm == "squared":
                 y = (atp ** 2) / 100
+            elif self._algorithm == "sinh":
+                y = 50 + sinh((atp - 50) / 10.85)
+            elif self._algorithm == "tanh":
+                y = 50 + 50.5 * (tanh((atp - 50) / 17))
             else:
                 self.logger.warning("Unknown fan algorithm({0})!".format(self._algorithm))
                 # Fall back to 50%
