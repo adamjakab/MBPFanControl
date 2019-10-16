@@ -24,10 +24,10 @@ class SensorChecker:
             raw_value = self._read_sensor_data(sensor["sys_path"])
             range_min = int(sensor["min_degrees"]) * 1000
             range_max = int(sensor["max_degrees"]) * 1000
-            if raw_value < range_min:
-                range_min = raw_value
-            if raw_value > range_max:
-                range_max = raw_value
+            # if raw_value < range_min:
+            #     range_min = raw_value
+            # if raw_value > range_max:
+            #     range_max = raw_value
             range_tot = range_max - range_min
             range_value = raw_value - range_min
             range_percent = int((range_value / range_tot) * 100)
