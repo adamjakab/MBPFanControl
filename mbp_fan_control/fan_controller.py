@@ -56,7 +56,7 @@ class FanController:
 
     def _set_fan_rpm(self, rpm, sys_path):
         cmd = 'echo {0} > {1}'.format(rpm, sys_path)
-        self.logger.log("EXEC: '{0}'".format(cmd))
+        self.logger.debug("EXEC: '{0}'".format(cmd))
         os.system(cmd)
 
         # try:
