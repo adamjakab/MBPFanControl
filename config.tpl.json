@@ -1,1 +1,30 @@
-{}
+{
+  "default": {
+    "log_configuration_file": "logconfig.ini",
+    "poll_interval_sec": 5,
+    "fan_speed_algorithm": "linear",
+    "sensors": [
+      {
+        "alias": "Core 0",
+        "sys_path": "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp2_input",
+        "min_degrees": 35,
+        "max_degrees": 90
+      },
+      {
+        "alias": "Core 1",
+        "sys_path": "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp3_input",
+        "min_degrees": 35,
+        "max_degrees": 90
+      }
+    ],
+    "fans": [
+      {
+        "alias": "Exhaust #1",
+        "sys_path": "/sys/devices/platform/applesmc.768/fan1_output",
+        "enable_manual_sys_path": "/sys/devices/platform/applesmc.768/fan1_manual",
+        "min_rpm": 2000,
+        "max_rpm": 6200
+      }
+    ]
+  }
+}

@@ -21,6 +21,7 @@ class FanController:
         self._config = fan_config
         if algorithm in self._algorithms:
             self._algorithm = algorithm
+        self._enable_manual_fan_control()
 
     def adjust_fan_speed(self, sensor_data):
         # self.logger.info("Sensor data: {0}".format(sensor_data))
@@ -71,6 +72,13 @@ class FanController:
         cmd = 'echo {0} > {1}'.format(rpm, sys_path)
         # self.logger.debug("EXEC: '{0}'".format(cmd))
         os.system(cmd)
+
+    def _enable_manual_fan_control(self):
+        for fan in self._config:
+            sys_path = fan["enable_manual_sys_path"]
+            self.logger.debug("Enabling manual fan control: '{0}'".format(sys_path))
+            cmd = 'echo {0} > {1}'.format(1, sys_path)
+            os.system(cmd)
 
     def _get_average_thermal_percent(self, sensor_data):
         avg_percent = 0
