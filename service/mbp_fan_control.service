@@ -1,0 +1,16 @@
+[Unit]
+Description=MacBook Pro Fan Control service
+Before=basic.target
+After=sysinit.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=30
+User=root
+ExecStart=/usr/local/appz/MBPFanControl/service/launcher.sh
+
+[Install]
+WantedBy=multi-user.target
+
