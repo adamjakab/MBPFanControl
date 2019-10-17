@@ -1,7 +1,6 @@
 [Unit]
 Description=MacBook Pro Fan Control service
-Before=basic.target
-After=sysinit.target
+After=multi-user.target
 StartLimitIntervalSec=0
 
 [Service]
