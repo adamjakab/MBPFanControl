@@ -6,3 +6,5 @@
 
 # Other excludes
 config.json
+logconfig.ini
+
