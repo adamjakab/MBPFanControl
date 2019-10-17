@@ -11,7 +11,7 @@ SETUP
 
 FAN SPEED ALGORITHMS
 -------------
-[IMG HERE]
+[![Fan Speed Algorithms](https://github.com/adamjakab/MBPFanControl/blob/master/doc/fan_speed_algorithms.png)](https://github.com/adamjakab/MBPFanControl)
 
 CONFIGURATION
 -------------

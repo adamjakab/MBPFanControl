@@ -4,7 +4,7 @@
 #  License: See LICENSE.txt
 #  Email: adaja at itu dot dk
 #
-#
+# @todo: it would be much better to have a sensor class
 
 import logging
 import os
